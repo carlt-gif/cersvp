@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --card-bg: rgba(255, 255, 255, 0.94);
+            --card-bg: rgba(255, 255, 255, 0.92);
             --text-main: #2b2b2b;
             --text-muted: #737373;
             --accent: #b08d57;
@@ -26,15 +26,7 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f7f5f0;
-            /* References background.jpg cleanly in the same repository folder */
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
-                url('background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-color: #f7f5f0; /* Clean light background for outer page */
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
@@ -48,16 +40,22 @@
             max-width: 520px;
         }
 
+        /* INSIDE CARD BACKGROUND: Photo collage placed behind all content elements */
         .main-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+                url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border: 1px solid var(--border);
             border-radius: 16px;
             box-shadow: var(--shadow);
             padding: 40px 28px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .tagline {
@@ -149,7 +147,9 @@
 
         /* Interactive Quiz Section */
         .interactive-zone {
-            background: rgba(247, 245, 240, 0.7);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             border-radius: 12px;
             padding: 20px 16px;
             margin-bottom: 24px;
@@ -200,326 +200,4 @@
         .timer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 30px;
-        }
-
-        .time-box {
-            background: rgba(247, 245, 240, 0.7);
-            border: 1px solid var(--border);
-            padding: 10px 4px;
-            border-radius: 8px;
-        }
-
-        .time-box .num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-main);
-            display: block;
-        }
-
-        .time-box .label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-        }
-
-        /* RSVP Section */
-        .rsvp-zone {
-            border-top: 1px solid var(--border);
-            padding-top: 25px;
-            margin-bottom: 25px;
-        }
-
-        .rsvp-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-main);
-        }
-
-        .rsvp-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .rsvp-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .rsvp-yes {
-            background: var(--text-main);
-            color: #ffffff;
-            border: 1px solid var(--text-main);
-        }
-
-        .rsvp-yes:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .rsvp-no {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-        }
-
-        .rsvp-no:hover {
-            background: #f0f0f0;
-            color: var(--text-main);
-        }
-
-        .rsvp-response {
-            display: none;
-            margin-top: 15px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
-            color: var(--accent);
-            font-style: italic;
-        }
-
-        .calendar-btn {
-            width: 100%;
-            background: transparent;
-            border: 1px dashed var(--accent);
-            color: var(--accent);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .calendar-btn:hover {
-            background: var(--accent-soft);
-        }
-
-        @media (max-width: 480px) {
-            h1.couple-names { font-size: 2.4rem; }
-            .quiz-buttons, .rsvp-buttons { flex-direction: column; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card-wrapper">
-        <div class="main-card">
-
-            <div class="tagline">Save The Date</div>
-            <h1 class="couple-names">Carl & Emma</h1>
-            <p class="subtitle">Are getting married</p>
-
-            <!-- Scratch Card -->
-            <div class="scratch-container" id="scratchContainer">
-                <div class="scratch-reveal-content">
-                    <div class="date">DECEMBER 22, 2026</div>
-                    <div class="venue">Calvary Baptist Church • SJDM</div>
-                </div>
-                <canvas id="scratchCanvas"></canvas>
-            </div>
-
-            <div class="instruction-hint" id="scratchHint">✨ Scratch to reveal the details ✨</div>
-
-            <!-- Quiz Questions -->
-            <div class="interactive-zone">
-                <div class="quiz-title">Who fell in love first?</div>
-                <div class="quiz-buttons">
-                    <button class="choice-btn" onclick="checkLove('carl')">Carl</button>
-                    <button class="choice-btn" onclick="checkLove('emma')">Emma</button>
-                </div>
-                <div class="quiz-feedback" id="loveFeedback"></div>
-            </div>
-
-            <div class="interactive-zone">
-                <div class="quiz-title">Who is more likely to cry at the wedding?</div>
-                <div class="quiz-buttons">
-                    <button class="choice-btn" onclick="checkCry('carl')">Carl</button>
-                    <button class="choice-btn" onclick="checkCry('emma')">Emma</button>
-                    <button class="choice-btn" onclick="checkCry('both')">Both!</button>
-                </div>
-                <div class="quiz-feedback" id="cryFeedback"></div>
-            </div>
-
-            <!-- Countdown Timer -->
-            <div class="timer-grid">
-                <div class="time-box"><span class="num" id="d">00</span><span class="label">Days</span></div>
-                <div class="time-box"><span class="num" id="h">00</span><span class="label">Hours</span></div>
-                <div class="time-box"><span class="num" id="m">00</span><span class="label">Mins</span></div>
-                <div class="time-box"><span class="num" id="s">00</span><span class="label">Secs</span></div>
-            </div>
-
-            <!-- RSVP Section -->
-            <div class="rsvp-zone">
-                <div class="rsvp-title" id="rsvpHeader">Will you be celebrating with us?</div>
-                <div class="rsvp-buttons" id="rsvpBtnGroup">
-                    <button class="rsvp-btn rsvp-yes" onclick="submitRSVP(true)">Yes, gladly!</button>
-                    <button class="rsvp-btn rsvp-no" onclick="submitRSVP(false)">Regretfully, no</button>
-                </div>
-                <div class="rsvp-response" id="rsvpMessage"></div>
-            </div>
-
-            <button class="calendar-btn" onclick="addToCalendar()">
-                📅 Add to Google Calendar
-            </button>
-
-        </div>
-    </div>
-
-    <script>
-        // --- Canvas Setup ---
-        const container = document.getElementById('scratchContainer');
-        const canvas = document.getElementById('scratchCanvas');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
-
-        function initCanvas() {
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-
-            ctx.fillStyle = '#e5dec9';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#666666';
-            ctx.font = '500 12px "Plus Jakarta Sans", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('SCRATCH OR DRAG HERE', canvas.width / 2, canvas.height / 2 + 4);
-        }
-
-        initCanvas();
-        window.addEventListener('resize', initCanvas);
-
-        function scratch(e) {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
-
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(x, y, 20, 0, Math.PI * 2);
-            ctx.fill();
-
-            checkScratch();
-        }
-
-        function checkScratch() {
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            let clearPixels = 0;
-            for (let i = 3; i < imageData.data.length; i += 4) {
-                if (imageData.data[i] === 0) clearPixels++;
-            }
-            if (clearPixels / (canvas.width * canvas.height) > 0.40) {
-                canvas.style.transition = 'opacity 0.5s ease';
-                canvas.style.opacity = '0';
-                setTimeout(() => canvas.remove(), 500);
-                document.getElementById('scratchHint').innerText = "✨ We can't wait to see you! ✨";
-                triggerConfetti();
-            }
-        }
-
-        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
-        canvas.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('mousemove', scratch);
-        
-        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: true });
-        canvas.addEventListener('touchend', () => isDrawing = false);
-        canvas.addEventListener('touchmove', scratch, { passive: true });
-
-        // --- Quiz Logic ---
-        function checkLove(choice) {
-            const feedback = document.getElementById('loveFeedback');
-            if (choice === 'carl') {
-                feedback.innerText = "Correct! Carl was smitten from day one! 🤍";
-                triggerConfetti();
-            } else {
-                feedback.innerText = "Emma stole his heart fast, but Carl fell first! 😉";
-            }
-        }
-
-        function checkCry(choice) {
-            const feedback = document.getElementById('cryFeedback');
-            if (choice === 'carl') {
-                feedback.innerText = "100%! Carl will definitely need tissues handy! 😭";
-                triggerConfetti();
-            } else if (choice === 'emma') {
-                feedback.innerText = "Emma might shed a tear, but our money is on Carl! 🤍";
-            } else {
-                feedback.innerText = "There won't be a dry eye in the church! 🥹";
-                triggerConfetti();
-            }
-        }
-
-        // --- RSVP Logic ---
-        function submitRSVP(attending) {
-            const btnGroup = document.getElementById('rsvpBtnGroup');
-            const message = document.getElementById('rsvpMessage');
-
-            btnGroup.style.display = 'none';
-            message.style.display = 'block';
-
-            if (attending) {
-                message.innerText = "Yay! We can't wait to celebrate with you on Dec 22! 🎉";
-                triggerConfetti();
-            } else {
-                message.innerText = "We'll miss you! Thank you for sending your love. 🤍";
-            }
-        }
-
-        // --- Live Countdown ---
-        const targetDate = new Date(2026, 11, 22, 14, 0, 0).getTime();
-
-        function updateTimer() {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
-
-            if (diff > 0) {
-                document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('h').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById('m').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('s').innerText = Math.floor((diff % (1000 * 60)) / 1000);
-            }
-        }
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        // --- Confetti Effect ---
-        function triggerConfetti() {
-            confetti({
-                particleCount: 50,
-                spread: 50,
-                origin: { y: 0.7 },
-                colors: ['#b08d57', '#2b2b2b', '#e2dacd']
-            });
-        }
-
-        // --- Calendar Logic ---
-        function addToCalendar() {
-            const title = encodeURIComponent("Carl & Emma's Wedding");
-            const details = encodeURIComponent("Save the date for Carl & Emma's wedding ceremony at Calvary Baptist Church - SJDM!");
-            const location = encodeURIComponent("Calvary Baptist Church, San Jose del Monte");
-            const dates = "20261222T060000Z/20261222T120000Z";
-            
-            const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
-            window.open(gcalUrl, '_blank');
-        }
-    </script>
-</body>
-</html>
+            gap: 8px
